@@ -1,0 +1,22 @@
+version: '3'
+#-----------#
+services:
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGODB_USER=admin
+      - MONGODB_PASSWORD=admin
+      - MONGODB_DATABASE=mydb
+  backend:
+    image: node:8.1
+    volumes:
+      - ./backend:/backend
+    ports:
+      - 3000:3000
+    command: bash -c "cd /backend && npm set strict-ssl false && npm config set registry https://atf.io.bb.com.br/repository/npm/ && npm i && node server"
+      
+
+    
+    
