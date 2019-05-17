@@ -5,6 +5,7 @@ const restful = require('node-restful')
 const server = express()
 const mongoose = restful.mongoose
 
+const port = 3000; 
 // Database
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://admin:admin@db:27017/mydb?authSource=admin',{useMongoClient: true})
@@ -12,10 +13,12 @@ mongoose.connect('mongodb://admin:admin@db:27017/mydb?authSource=admin',{useMong
 const database = mongoose.connection;
 database.on('error', console.error.bind(console, 'connection error:'))
 database.once('open', () => {
-console.log('Connected to MongoDB')
+    console.log('Connected to MongoDB')
 })
 // Teste
-server.get('/', (req, res, next) => res.send('Backend'))
+server.get('/', (req, res, next) => res.send('Backend'));
 
 // Start Server
-server.listen(3000)
+server.listen(port, ()=>{
+    console.log("Listening to port: ", port);
+})
